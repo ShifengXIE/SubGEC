@@ -1,0 +1,5 @@
+Cora:
+  seed: 1234
+  activation: relu
+  base_model: GCNConv
+  other_parameter: value

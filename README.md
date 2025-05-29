@@ -1,18 +1,22 @@
-# SubGEC: Subgraph Gaussian Embedding Contrast for Self-Supervised Representation Learning
+# SubGEC: Subgraph Gaussian Embedding Contrast for Self-Supervised Graph Representation Learning
 
-This repository contains the implementation of **Subgraph Gaussian Embedding Contrast (SubGEC)**, a method for self-supervised node representation learning, as described in our paper:
+This repository contains the implementation of **Subgraph Gaussian Embedding Contrast (SubGEC)**, a method for self-supervised node representation learning, as described in our paper accepted to **ECML-PKDD 2025**.
 
+* 📄 [Paper on arXiv](https://arxiv.org/abs/2411.07150)
 
 ## Overview
 
-Graph representation learning (GRL) is fundamental for encoding graph-structured data into low-dimensional vectors. Self-supervised learning (SSL) methods, especially contrastive learning, have shown promise in GRL by leveraging similarities and differences between data samples without requiring extensive human annotation.
+Graph Representation Learning (GRL) aims to encode high-dimensional graph-structured data into low-dimensional vectors. Self-supervised learning (SSL) methods, particularly contrastive learning, leverage data similarities and differences without extensive human annotations.
 
-In this work, we propose **SubGEC**, which introduces a **Subgraph Gaussian Embedding (SGE)** module. This module adaptively maps subgraphs to a structured Gaussian space, ensuring the preservation of graph characteristics while controlling the distribution of generated subgraphs. We employ optimal transport distances, including **Wasserstein** and **Gromov-Wasserstein** distances, to effectively measure the similarity between subgraphs, enhancing the robustness of the contrastive learning process.
+We propose **SubGEC**, introducing a novel **Subgraph Gaussian Embedding (SGE)** module. This module adaptively maps subgraphs to a structured Gaussian space, ensuring the preservation of input subgraph characteristics while controlling the distribution through Gaussian regularization. We utilize optimal transport distances—specifically the **Wasserstein** and **Gromov-Wasserstein** distances—to robustly measure subgraph similarity for contrastive learning. Extensive experiments demonstrate that SubGEC achieves competitive or superior performance compared to state-of-the-art approaches.
 
-Our method outperforms or presents competitive performance against state-of-the-art approaches on multiple benchmarks.
+## Authors
+
+* **Shifeng XIE** \[[LinkedIn](https://www.linkedin.com/in/shifeng-xie-953757209)]
+* **Aref Einizade** \[[Google Scholar](https://scholar.google.com/citations?user=ZEQyAaAAAAAJ&hl=en)]
+* **Jhony H. Giraldo** \[[Google Scholar](https://scholar.google.com/citations?user=iwzmGKwAAAAJ&hl=en)]
 
 ---
-
 
 ## Usage
 
@@ -24,25 +28,26 @@ To start training the model with random hyperparameter search using [Optuna](htt
 python train.py
 ```
 
-This script performs hyperparameter optimization over a predefined search space. You can adjust the search space and the number of trials in the `train.py` script.
+This script performs hyperparameter optimization over a predefined search space. Adjust the search space and the number of trials in the `train.py` script.
 
 ### Training with Specific Hyperparameters
 
 If you prefer to specify certain hyperparameters, use:
 
 ```bash
-python singleTrain.py 
+python singleTrain.py
 ```
+
 ---
 
 ## Model Architecture
 
-The SGEC model consists of:
+The SubGEC model architecture includes:
 
-- **Graph Encoder**: Two Graph Convolutional Network (GCN) layers for initial graph embedding.
-- **Subgraph Sampling**: Breadth-First Search (BFS) is used to sample subgraphs centered around selected nodes.
-- **Subgraph Gaussian Embedding (SGE) Module**: Combines GraphSAGE and Graph Attention Network (GAT) layers to embed subgraphs into a Gaussian space.
-- **Contrastive Learning with Optimal Transport**: Utilizes Wasserstein and Gromov-Wasserstein distances to measure similarities between subgraphs for contrastive learning.
+* **Graph Encoder**: Two Graph Convolutional Network (GCN) layers that produce initial node embeddings.
+* **Subgraph Sampling**: Breadth-First Search (BFS) extracts subgraphs around selected anchor nodes.
+* **Subgraph Gaussian Embedding (SGE) Module**: Composed of GraphSAGE followed by two separate Graph Attention Networks (GATs) to encode the means and variances of subgraph embeddings into Gaussian distributions.
+* **Gaussian Regularization**: Uses Kullback–Leibler (KL) divergence to enforce Gaussian-distributed embeddings.
+* **Contrastive Learning**: Employs the Wasserstein and Gromov-Wasserstein distances in an optimal transport framework to measure subgraph similarity.
 
 ---
-

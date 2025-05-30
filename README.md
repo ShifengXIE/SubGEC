@@ -2,7 +2,7 @@
 
 This repository contains the implementation of **Subgraph Gaussian Embedding Contrast (SubGEC)**, a method for self-supervised node representation learning, as described in our paper accepted to **ECML-PKDD 2025**.
 
-* 📄 [Paper on arXiv](https://arxiv.org/abs/2411.07150)
+* 📄 [Paper on arXiv](http://arxiv.org/abs/2505.23529)
 
 ## Overview
 
